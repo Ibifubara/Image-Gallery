@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react';
+import ImageCard from './components/imageCard';
+import SearchImage from './components/searchImage';
+
 
 function App() {
+const [images, setImages] = useState([])
+const [isLoading, setIsLoading] = useState(true)
+const [term, setTerm] = useState('')
+
+const url = (`https://api.pexels.com/v1/search?query=${term}&orientation=square`)
+
+useEffect(() => {
+  fetch(url, {
+    headers: {
+      Authorization : process.env.REACT_APP_PEXELS_API_KEY,
+    },
+  })
+  .then( res => res.json())
+  .then( data => {
+    setImages(data.photos)
+    setIsLoading(false)
+  })
+  .catch( err => console.log(err))
+}, [term])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+    <div className="container mx-auto">
+      <SearchImage searchText={(text) => setTerm(text)} />
+      {isLoading ? <h1 className='text-6xl text-center text-white py-4 px-6 bg-fuchsia-500 mx-auto mt-32 rounded-lg'>Processing...</h1> : <div className="md:grid grid-cols-4 gap-4">
+        {images.map( image => (
+          <ImageCard key={image.id} image={image} />
+        ))}
+      </div>}
     </div>
   );
 }
