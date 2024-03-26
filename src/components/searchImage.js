@@ -17,9 +17,9 @@ const SearchImage = ({ searchText}) => {
       </div>
       <form onSubmit={onSubmit}>
         <div className="flex items-center border-b-2 border-fuchsia-900 py-2">
-          <input onChange={e => setText(e.target.value)} className="placeholder:italic placeholder:text-slate-400 appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Search Image Term..." />
+          <input onChange={e => setText(e.target.value)} className="placeholder:italic placeholder:text-slate-400 appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Search Image..." />
           <button className="flex-shrink-0 bg-fuchsia-900 hover:bg-fuchsia-900 border-fuchsia-900 hover:border-fuchsia-900 text-sm border-4 text-white py-1 px-2 rounded" type='submit'>
-            <FaSearch className='text-gray-600' />
+            <FaSearch className='text-gray-400' />
           </button>
         </div>
       </form>

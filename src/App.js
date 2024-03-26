@@ -6,7 +6,7 @@ import SearchImage from './components/searchImage';
 function App() {
 const [images, setImages] = useState([])
 const [isLoading, setIsLoading] = useState(true)
-const [term, setTerm] = useState('')
+const [term, setTerm] = useState('destination')
 
 const url = (`https://api.pexels.com/v1/search?query=${term}&orientation=square`)
 
@@ -28,6 +28,9 @@ useEffect(() => {
     
     <div className="container mx-auto">
       <SearchImage searchText={(text) => setTerm(text)} />
+
+      {!isLoading && images.length === 0  && <h1 className='text-6xl text-center text-white py-4 px-6 bg-fuchsia-500 mx-auto mt-32 rounded-lg'>No Images Found</h1>}
+
       {isLoading ? <h1 className='text-6xl text-center text-white py-4 px-6 bg-fuchsia-500 mx-auto mt-32 rounded-lg'>Processing...</h1> : <div className="md:grid grid-cols-4 gap-4">
         {images.map( image => (
           <ImageCard key={image.id} image={image} />
