@@ -6,19 +6,21 @@ import SearchImage from './components/searchImage';
 function App() {
 const [images, setImages] = useState([])
 const [isLoading, setIsLoading] = useState(true)
-const [term, setTerm] = useState('destination')
+const [term, setTerm] = useState('')
 
-const url = (`https://api.pexels.com/v1/search?query=${term}&orientation=square`)
+// const url = (`https://api.pexels.com/v1/search?q=${term}&orientation=vertical`)
 
 useEffect(() => {
-  fetch(url, {
-    headers: {
-      Authorization : process.env.REACT_APP_PEXELS_API_KEY,
-    },
-  })
+  // fetch(url, {
+  //   headers: {
+  //     Authorization : process.env.REACT_APP_PEXELS_API_KEY,
+  //   },
+  // })
+  
+  fetch(`https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_API_KEY}&q=${term}&image_type=photos&pretty=true&orientation=horizontal`)
   .then( res => res.json())
   .then( data => {
-    setImages(data.photos)
+    setImages(data.hits)
     setIsLoading(false)
   })
   .catch( err => console.log(err))
